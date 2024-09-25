@@ -5,13 +5,12 @@ const client = new PrismaClient()
 async function main() {
   const book = await client.book.create({
     data: {
-      title: "Kafka on the Shore",
-      ISBN: '0-4973-1219-0',
+      title: "IQ84",
+      ISBN: '0-4973-1219-1',
       author: {
-        create: 
+        connect: 
           {
-          name: 'Haruki Murakami',
-          biography: 'a guy from Japan'
+          id: 'cm1ifonz50001v06li4l44bxq',
         }
       },
       genres: {
@@ -24,7 +23,7 @@ async function main() {
         create:
           {
           name: 'Bob',
-          email: 'bob@burgers.com',
+          email: 'sally@burgers.com',
           address: '123 Fake Street'
         }
       }
