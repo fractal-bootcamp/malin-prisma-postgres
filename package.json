@@ -5,5 +5,9 @@
   },
   "devDependencies": {
     "prisma": "^5.20.0"
+  },
+ "scripts": {
+    "generate1": "npx prisma generate --schema ./prisma/schema1.prisma",
+    "generate2": "npx prisma generate --schema ./prisma/schema2.prisma"
   }
 }

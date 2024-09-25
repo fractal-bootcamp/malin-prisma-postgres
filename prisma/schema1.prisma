@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// Book (ID, Title, Author, ISBN)
+// Author (ID, Name, Biography)
+// Genre (ID, Name)
+// Member (ID, Name, Email, Address)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL_1")
+}
+
+model Book {
+  id       String  @id @default(cuid())
+  title    String
+  authorId String
+  author   Author  @relation(fields: [authorId], references: [id]) // Book can have one author
+  genres   Genre[] // Book can have multiple genres
+  ISBN     String  @unique
+  memberId String
+  member   Member  @relation(fields: [memberId], references: [id]) // Book can only have one member borrowing it
+}
+
+model Author {
+  id        String  @id @default(cuid())
+  name      String
+  biography String?
+  Book      Book[] // Author can have multiple Books
+}
+
+model Genre {
+  id    String @id @default(cuid())
+  name  String
+  books Book[] // Each Genre as a category can have multiple books
+}
+
+model Member {
+  id      String  @id @default(cuid())
+  name    String
+  email   String  @unique
+  address String?
+  books   Book[] // Member can have multiple Books borrowed
+}
